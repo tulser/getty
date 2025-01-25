@@ -131,18 +131,6 @@ pub const NetAddress = @import("blocks/net_address.zig");
 /// Deserialization block for `std.Uri`.
 pub const Uri = @import("blocks/uri.zig");
 
-/// Deserialization block for `std.PackedIntArray` values.
-pub const PackedIntArray = _PackedIntEndian;
-
-/// Deserialization block for `std.PackedIntSlice` values.
-pub const PackedIntSlice = _PackedIntEndian;
-
-/// Deserialization block for `std.PackedIntArrayEndian` values.
-pub const PackedIntArrayEndian = _PackedIntEndian;
-
-/// Deserialization block for `std.PackedIntSliceEndian` values.
-pub const PackedIntSliceEndian = _PackedIntEndian;
-
 /// Deserialization block for `std.SemanticVersion`.
 pub const SemanticVersion = @import("blocks/semantic_version.zig");
 
@@ -190,6 +178,5 @@ pub const Ignored = @import("blocks/ignored.zig");
 const _ArrayListAligned = @import("blocks/array_list_aligned.zig");
 const _DynamicBitSet = @import("blocks/dynamic_bit_set.zig");
 const _HashMap = @import("blocks/hash_map.zig");
-const _PackedIntEndian = @import("blocks/packed_int_endian.zig");
 const _StaticBitSet = @import("blocks/static_bit_set.zig");
 const _EnumMultiset = @import("blocks/enum_multiset.zig");

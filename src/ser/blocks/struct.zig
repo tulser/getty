@@ -10,7 +10,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Struct and !@typeInfo(T).Struct.is_tuple;
+    return @typeInfo(T) == .@"struct" and !@typeInfo(T).@"struct".is_tuple;
 }
 
 /// Specifies the serialization process for values relevant to this block.
@@ -304,7 +304,7 @@ test "serialize - struct, attributes (skip, skip_ser_if)" {
 
 fn isNull(v: anytype) bool {
     return switch (@typeInfo(@TypeOf(v))) {
-        .Null, .Optional => v == null,
+        .null, .optional => v == null,
         else => false,
     };
 }

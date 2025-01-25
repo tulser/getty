@@ -17,7 +17,7 @@ pub fn run(ally: ?std.mem.Allocator, comptime serialize_fn: anytype, input: anyt
 }
 
 pub fn runErr(ally: ?std.mem.Allocator, comptime serialize_fn: anytype, e: anytype, input: anytype, expected: []const Token) !void {
-    comptime std.debug.assert(@typeInfo(@TypeOf(e)) == .ErrorSet);
+    comptime std.debug.assert(@typeInfo(@TypeOf(e)) == .error_set);
 
     var s = DefaultSerializer.init(expected);
     try require.equalError(e, serialize_fn(ally, input, s.serializer()));
@@ -87,8 +87,8 @@ pub fn Serializer(comptime user_sbt: anytype, comptime serializer_sbt: anytype) 
 
         fn serializeFloat(self: *Self, v: anytype) Error!Ok {
             const expected = switch (@typeInfo(@TypeOf(v))) {
-                .ComptimeFloat => Token{ .ComptimeFloat = {} },
-                .Float => |info| switch (info.bits) {
+                .comptime_float => Token{ .ComptimeFloat = {} },
+                .float => |info| switch (info.bits) {
                     16 => Token{ .F16 = v },
                     32 => Token{ .F32 = v },
                     64 => Token{ .F64 = v },
@@ -103,8 +103,8 @@ pub fn Serializer(comptime user_sbt: anytype, comptime serializer_sbt: anytype) 
 
         fn serializeInt(self: *Self, v: anytype) Error!Ok {
             const expected = switch (@typeInfo(@TypeOf(v))) {
-                .ComptimeInt => Token{ .ComptimeInt = {} },
-                .Int => |info| switch (info.signedness) {
+                .comptime_int => Token{ .ComptimeInt = {} },
+                .int => |info| switch (info.signedness) {
                     .signed => switch (info.bits) {
                         8 => Token{ .I8 = v },
                         16 => Token{ .I16 = v },

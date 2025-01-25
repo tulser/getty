@@ -8,7 +8,7 @@ const VisitorInterface = @import("../../interfaces/visitor.zig").Visitor;
 const VisitStringReturn = @import("../../interfaces/visitor.zig").VisitStringReturn;
 
 pub fn Visitor(comptime Pointer: type) type {
-    if (@typeInfo(Pointer) != .Pointer or @typeInfo(Pointer).Pointer.size != .One) {
+    if (@typeInfo(Pointer) != .pointer or @typeInfo(Pointer).pointer.size != .one) {
         @compileError(std.fmt.comptimePrint("expected one pointer, found `{s}`", .{@typeName(Pointer)}));
     }
 
@@ -147,9 +147,9 @@ pub fn Visitor(comptime Pointer: type) type {
 
             if (comptime has_attributes(Child, child_db)) {
                 return switch (@typeInfo(Child)) {
-                    .Enum => blocks.Enum.Visitor(Child),
-                    .Struct => blocks.Struct.Visitor(Child),
-                    .Union => blocks.Union.Visitor(Child),
+                    .@"enum" => blocks.Enum.Visitor(Child),
+                    .@"struct" => blocks.Struct.Visitor(Child),
+                    .@"union" => blocks.Union.Visitor(Child),
                     else => unreachable, // UNREACHABLE: has_attributes guarantees that Child is an enum, struct or union.
                 };
             }

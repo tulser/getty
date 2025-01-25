@@ -153,7 +153,7 @@ pub fn Serializer(
             pub fn serializeEnum(self: Self, index: anytype, name: []const u8) E!T {
                 if (methods.serializeEnum) |func| {
                     switch (@typeInfo(@TypeOf(index))) {
-                        .Int, .ComptimeInt => return try func(self.impl, index, name),
+                        .int, .comptime_int => return try func(self.impl, index, name),
                         else => @compileError("expected integer, found: " ++ @typeName(@TypeOf(index))),
                     }
                 }
@@ -165,7 +165,7 @@ pub fn Serializer(
             pub fn serializeFloat(self: Self, value: anytype) E!T {
                 if (methods.serializeFloat) |func| {
                     switch (@typeInfo(@TypeOf(value))) {
-                        .Float, .ComptimeFloat => return try func(self.impl, value),
+                        .float, .comptime_float => return try func(self.impl, value),
                         else => @compileError("expected float, found: " ++ @typeName(@TypeOf(value))),
                     }
                 }
@@ -177,7 +177,7 @@ pub fn Serializer(
             pub fn serializeInt(self: Self, value: anytype) E!T {
                 if (methods.serializeInt) |func| {
                     switch (@typeInfo(@TypeOf(value))) {
-                        .Int, .ComptimeInt => return try func(self.impl, value),
+                        .int, .comptime_int => return try func(self.impl, value),
                         else => @compileError("expected integer, found: " ++ @typeName(@TypeOf(value))),
                     }
                 }

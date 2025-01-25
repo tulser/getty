@@ -11,7 +11,7 @@ pub fn is(
     /// The type being deserialized into.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Array;
+    return @typeInfo(T) == .array;
 }
 
 /// Specifies the deserialization process for types relevant to this block.

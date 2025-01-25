@@ -11,7 +11,7 @@ pub fn is(
     /// The type being deserialized into.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Struct and !@typeInfo(T).Struct.is_tuple;
+    return @typeInfo(T) == .@"struct" and !@typeInfo(T).@"struct".is_tuple;
 }
 
 /// Specifies the deserialization process for types relevant to this block.

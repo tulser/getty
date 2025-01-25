@@ -17,7 +17,7 @@ pub fn is(
     /// The type being deserialized into.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Union;
+    return @typeInfo(T) == .@"union";
 }
 
 /// Specifies the deserialization process for types relevant to this block.
@@ -532,7 +532,7 @@ test "deserialize - union, attributes (tag, untagged)" {
             var result = try testing.deserialize(t.name, @This(), Want, t.tokens);
             defer result.deinit();
 
-            if (@typeInfo(@TypeOf(t.want)).Union.tag_type) |_| {
+            if (@typeInfo(@TypeOf(t.want)).@"union".tag_type) |_| {
                 switch (t.want) {
                     .String => |want| try require.equalf(want, result.value.String, "Test case: {s}", .{t.name}),
                     else => |want| try require.equalf(want, result.value, "Test case: {s}", .{t.name}),

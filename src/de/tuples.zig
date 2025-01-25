@@ -68,14 +68,6 @@ pub const dt = .{
     //blocks.NetAddress,
     blocks.Uri,
 
-    // Covers the following types:
-    //
-    //   - std.PackedIntArray
-    //   - std.PackedIntArrayEndian
-    //   - std.PackedIntSlice
-    //   - std.PackedIntSliceEndian
-    blocks.PackedIntArray,
-
     blocks.PriorityQueue,
     blocks.PriorityDequeue,
     blocks.SemanticVersion,

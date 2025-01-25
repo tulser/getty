@@ -51,9 +51,9 @@ pub fn serialize(
     // Process attributes, if any exist.
     if (comptime attributes.has_attributes(T, block)) {
         switch (@typeInfo(T)) {
-            .Enum => return try blocks.Enum.serialize(ally, v, s),
-            .Struct => return try blocks.Struct.serialize(ally, v, s),
-            .Union => return try blocks.Union.serialize(ally, v, s),
+            .@"enum" => return try blocks.Enum.serialize(ally, v, s),
+            .@"struct" => return try blocks.Struct.serialize(ally, v, s),
+            .@"union" => return try blocks.Union.serialize(ally, v, s),
             else => @compileError("unexpected type cannot be serialized using attributes"),
         }
     }

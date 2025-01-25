@@ -10,7 +10,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Pointer and @typeInfo(T).Pointer.size == .Slice and comptime !isString(T);
+    return @typeInfo(T) == .pointer and @typeInfo(T).pointer.size == .slice and comptime !isString(T);
 }
 
 /// Specifies the serialization process for values relevant to this block.

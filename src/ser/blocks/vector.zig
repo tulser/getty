@@ -10,7 +10,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Vector;
+    return @typeInfo(T) == .vector;
 }
 
 /// Specifies the serialization process for values relevant to this block.
@@ -22,7 +22,7 @@ pub fn serialize(
     /// A `getty.Serializer` interface value.
     serializer: anytype,
 ) @TypeOf(serializer).Err!@TypeOf(serializer).Ok {
-    const info = @typeInfo(@TypeOf(value)).Vector;
+    const info = @typeInfo(@TypeOf(value)).vector;
 
     const Array = [info.len]info.child;
     return try getty_serialize(ally, @as(Array, value), serializer);

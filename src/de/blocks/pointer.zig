@@ -17,7 +17,7 @@ pub fn is(
     /// The type being deserialized into.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Pointer and @typeInfo(T).Pointer.size == .One;
+    return @typeInfo(T) == .pointer and @typeInfo(T).pointer.size == .one;
 }
 
 /// Specifies the deserialization process for types relevant to this block.
@@ -40,9 +40,9 @@ pub fn deserialize(
 
     if (comptime has_attributes(Child, db)) {
         switch (@typeInfo(Child)) {
-            .Enum => return try blocks.Enum.deserialize(ally, Child, deserializer, visitor),
-            .Struct => return try blocks.Struct.deserialize(ally, Child, deserializer, visitor),
-            .Union => return try blocks.Union.deserialize(ally, Child, deserializer, visitor),
+            .@"enum" => return try blocks.Enum.deserialize(ally, Child, deserializer, visitor),
+            .@"struct" => return try blocks.Struct.deserialize(ally, Child, deserializer, visitor),
+            .@"union" => return try blocks.Union.deserialize(ally, Child, deserializer, visitor),
             else => unreachable, // UNREACHABLE: has_attributes guarantees that Child is an enum, struct or union.
         }
     }

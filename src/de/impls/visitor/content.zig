@@ -45,8 +45,8 @@ fn visitFloat(_: @This(), _: std.mem.Allocator, comptime Deserializer: type, inp
 
 fn visitInt(_: @This(), ally: std.mem.Allocator, comptime Deserializer: type, input: anytype) Deserializer.Err!Content {
     return switch (@typeInfo(@TypeOf(input))) {
-        .Int => .{ .Int = try std.math.big.int.Managed.initSet(ally, input) },
-        .ComptimeInt => @compileError("comptime_int is not supported"),
+        .int => .{ .Int = try std.math.big.int.Managed.initSet(ally, input) },
+        .comptime_int => @compileError("comptime_int is not supported"),
         else => unreachable, // UNREACHABLE: The Visitor interface guarantees that input is an integer.
     };
 }

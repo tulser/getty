@@ -12,7 +12,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Union;
+    return @typeInfo(T) == .@"union";
 }
 
 /// Specifies the serialization process for values relevant to this block.
@@ -25,7 +25,7 @@ pub fn serialize(
     serializer: anytype,
 ) @TypeOf(serializer).Err!@TypeOf(serializer).Ok {
     const T = @TypeOf(value);
-    const info = @typeInfo(T).Union;
+    const info = @typeInfo(T).@"union";
 
     if (info.tag_type == null) {
         @compileError(std.fmt.comptimePrint("untagged unions cannot be serialized: {s}", .{@typeName(T)}));

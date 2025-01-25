@@ -10,7 +10,7 @@ pub fn is(
     comptime T: type,
 ) bool {
     return switch (@typeInfo(T)) {
-        .Float, .ComptimeFloat => true,
+        .float, .comptime_float => true,
         else => false,
     };
 }

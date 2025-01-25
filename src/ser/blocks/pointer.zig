@@ -10,7 +10,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Pointer and @typeInfo(T).Pointer.size == .One;
+    return @typeInfo(T) == .pointer and @typeInfo(T).pointer.size == .one;
 }
 
 /// Specifies the serialization process for values relevant to this block.
@@ -22,10 +22,10 @@ pub fn serialize(
     /// A `getty.Serializer` interface value.
     serializer: anytype,
 ) @TypeOf(serializer).Err!@TypeOf(serializer).Ok {
-    const info = @typeInfo(@TypeOf(value)).Pointer;
+    const info = @typeInfo(@TypeOf(value)).pointer;
 
     // Serialize array pointers as slices so that strings are handled properly.
-    if (@typeInfo(info.child) == .Array) {
+    if (@typeInfo(info.child) == .array) {
         const Slice = []const std.meta.Elem(info.child);
         return try getty_serialize(ally, @as(Slice, value), serializer);
     }

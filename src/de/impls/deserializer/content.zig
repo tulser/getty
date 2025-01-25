@@ -104,7 +104,7 @@ pub const ContentDeserializer = struct {
             .Int => |v| blk: {
                 const Value = @TypeOf(visitor).Value;
 
-                if (@typeInfo(Value) == .Int) {
+                if (@typeInfo(Value) == .int) {
                     break :blk try visitor.visitInt(ally, De, v.to(Value) catch unreachable);
                 }
 

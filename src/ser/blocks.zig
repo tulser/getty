@@ -90,18 +90,6 @@ pub const LinearFifo = @import("blocks/linear_fifo.zig");
 pub const MultiArrayList = @import("blocks/multi_array_list.zig");
 pub const NetAddress = @import("blocks/net_address.zig");
 
-/// `PackedIntArray` is a _Serialization Block_ for `std.PackedIntArray` values.
-pub const PackedIntArray = _PackedIntEndian;
-
-/// `PackedIntArrayEndian` is a _Serialization Block_ for `std.PackedIntArrayEndian` values.
-pub const PackedIntArrayEndian = _PackedIntEndian;
-
-/// `PackedIntSlice` is a _Serialization Block_ for `std.PackedIntSlice` values.
-pub const PackedIntSlice = _PackedIntEndian;
-
-/// `PackedIntSliceEndian` is a _Serialization Block_ for `std.PackedIntSliceEndian` values.
-pub const PackedIntSliceEndian = _PackedIntEndian;
-
 pub const PriorityDequeue = @import("blocks/priority_dequeue.zig");
 pub const PriorityQueue = @import("blocks/priority_queue.zig");
 pub const SegmentedList = @import("blocks/segmented_list.zig");
@@ -141,4 +129,3 @@ pub const Union = @import("blocks/union.zig");
 const _ArrayListAligned = @import("blocks/array_list_aligned.zig");
 const _EnumMultiset = @import("blocks/enum_multiset.zig");
 const _HashMap = @import("blocks/hash_map.zig");
-const _PackedIntEndian = @import("blocks/packed_int_endian.zig");

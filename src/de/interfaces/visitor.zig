@@ -45,7 +45,7 @@ pub fn Visitor(
                 if (methods.visitFloat) |func| {
                     comptime {
                         switch (@typeInfo(@TypeOf(input))) {
-                            .Float, .ComptimeFloat => {},
+                            .float, .comptime_float => {},
                             else => @compileError("expected float, found: " ++ @typeName(@TypeOf(input))),
                         }
                     }
@@ -60,7 +60,7 @@ pub fn Visitor(
                 if (methods.visitInt) |func| {
                     comptime {
                         switch (@typeInfo(@TypeOf(input))) {
-                            .Int, .ComptimeInt => {},
+                            .int, .comptime_int => {},
                             else => @compileError("expected integer, found: " ++ @typeName(@TypeOf(input))),
                         }
                     }

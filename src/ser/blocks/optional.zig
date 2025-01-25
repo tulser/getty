@@ -9,7 +9,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Optional;
+    return @typeInfo(T) == .optional;
 }
 
 /// Specifies the serialization process for values relevant to this block.

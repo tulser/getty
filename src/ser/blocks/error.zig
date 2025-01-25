@@ -10,7 +10,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .ErrorSet;
+    return @typeInfo(T) == .error_set;
 }
 
 /// Specifies the serialization process for values relevant to this block.

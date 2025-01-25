@@ -27,7 +27,7 @@ pub fn Visitor(comptime Slice: type) type {
                 try list.append(elem);
             }
 
-            if (@typeInfo(Value).Pointer.sentinel) |s| {
+            if (@typeInfo(Value).pointer.sentinel) |s| {
                 const sentinel_char = @as(*const Child, @ptrCast(s)).*;
                 return try list.toOwnedSliceSentinel(sentinel_char);
             }
@@ -54,10 +54,10 @@ pub fn Visitor(comptime Slice: type) type {
                 return error.InvalidType;
             }
 
-            const v_info = @typeInfo(Value).Pointer;
+            const v_info = @typeInfo(Value).pointer;
 
             const safe = comptime safe: {
-                const i_info = @typeInfo(@TypeOf(input)).Pointer;
+                const i_info = @typeInfo(@TypeOf(input)).pointer;
 
                 const sentinels_match = (v_info.sentinel == null) == (i_info.sentinel == null);
                 const constness_match = v_info.is_const == i_info.is_const;

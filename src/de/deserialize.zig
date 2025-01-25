@@ -35,15 +35,15 @@ pub fn deserialize(
 
     if (comptime attributes.has_attributes(T, db)) {
         switch (@typeInfo(T)) {
-            .Enum => {
+            .@"enum" => {
                 var v = blocks.Enum.Visitor(T){};
                 result.value = try blocks.Enum.deserialize(arena_ally, T, d, v.visitor());
             },
-            .Struct => {
+            .@"struct" => {
                 var v = blocks.Struct.Visitor(T){};
                 result.value = try blocks.Struct.deserialize(arena_ally, T, d, v.visitor());
             },
-            .Union => {
+            .@"union" => {
                 var v = blocks.Union.Visitor(T){};
                 result.value = try blocks.Union.deserialize(arena_ally, T, d, v.visitor());
             },
@@ -85,15 +85,15 @@ pub fn deserializeLeaky(
 
     if (comptime attributes.has_attributes(T, db)) {
         switch (@typeInfo(T)) {
-            .Enum => {
+            .@"enum" => {
                 var v = blocks.Enum.Visitor(T){};
                 return try blocks.Enum.deserialize(ally, T, d, v.visitor());
             },
-            .Struct => {
+            .@"struct" => {
                 var v = blocks.Struct.Visitor(T){};
                 return try blocks.Struct.deserialize(ally, T, d, v.visitor());
             },
-            .Union => {
+            .@"union" => {
                 var v = blocks.Union.Visitor(T){};
                 return try blocks.Union.deserialize(ally, T, d, v.visitor());
             },

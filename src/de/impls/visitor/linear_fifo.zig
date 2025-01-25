@@ -56,7 +56,7 @@ pub fn Visitor(comptime LinearFifo: type) type {
         }
 
         const is_buffer_dynamic = std.meta.FieldType(Value, .allocator) != void;
-        const is_buffer_static = @typeInfo(std.meta.FieldType(Value, .buf)) == .Array;
+        const is_buffer_static = @typeInfo(std.meta.FieldType(Value, .buf)) == .array;
 
         const Child = std.meta.Child(std.meta.FieldType(Value, .buf));
     };

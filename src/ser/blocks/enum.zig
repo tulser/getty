@@ -11,7 +11,7 @@ pub fn is(
     comptime T: type,
 ) bool {
     return switch (@typeInfo(T)) {
-        .Enum, .EnumLiteral => true,
+        .@"enum", .enum_literal => true,
         else => false,
     };
 }
@@ -28,7 +28,7 @@ pub fn serialize(
     _ = ally;
 
     const T = @TypeOf(value);
-    const is_literal = @typeInfo(T) == .EnumLiteral;
+    const is_literal = @typeInfo(T) == .enum_literal;
 
     var name = @tagName(value);
     const index = if (is_literal) 0 else @intFromEnum(value);

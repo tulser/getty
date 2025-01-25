@@ -12,7 +12,7 @@ pub fn is(
     /// The type being deserialized into.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Pointer and @typeInfo(T).Pointer.size == .Slice;
+    return @typeInfo(T) == .pointer and @typeInfo(T).pointer.size == .slice;
 }
 
 /// Specifies the deserialization process for types relevant to this block.

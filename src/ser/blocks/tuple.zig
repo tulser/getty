@@ -9,7 +9,7 @@ pub fn is(
     /// The type of a value being serialized.
     comptime T: type,
 ) bool {
-    return @typeInfo(T) == .Struct and @typeInfo(T).Struct.is_tuple;
+    return @typeInfo(T) == .@"struct" and @typeInfo(T).@"struct".is_tuple;
 }
 
 /// Specifies the serialization process for values relevant to this block.
@@ -27,7 +27,7 @@ pub fn serialize(
 
     var s = try serializer.serializeSeq(std.meta.fields(T).len);
     const seq = s.seq();
-    inline for (@typeInfo(T).Struct.fields) |field| {
+    inline for (@typeInfo(T).@"struct".fields) |field| {
         try seq.serializeElement(@field(value, field.name));
     }
     return try seq.end();
