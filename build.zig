@@ -19,7 +19,7 @@ pub fn build(b: *std.Build) void {
     const testing_module = b.createModule(.{ .root_source_file = b.path(internal_dir ++ "testing/testing.zig") });
 
     // Package module.
-    const imports = .{
+    const imports = [_]std.Build.Module.Import{
         // External
         .{ .name = "protest", .module = protest_module },
 
