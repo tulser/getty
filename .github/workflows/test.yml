@@ -12,12 +12,12 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup-zig
         uses: mlugg/setup-zig@v1
         with:
-          version: 0.13.0
+          version: master
 
       - name: lint
         run: |
@@ -33,12 +33,15 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup-zig
         uses: mlugg/setup-zig@v1
         with:
-          version: 0.13.0
+          version: master
+
+      - name: build
+        run: zig build
 
       - name: test
         run: zig build test
@@ -56,12 +59,16 @@ jobs:
           git config --global core.eol lf
 
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup-zig
         uses: mlugg/setup-zig@v1
         with:
-          version: 0.13.0
+          version: master
+
+      - name: build
+        run: |
+          zig build -Dtarget=x86_64-windows --prefix tmp
 
       - name: test
-        run: zig build test -Dtarget=x86_64-windows --prefix tmp
+        run: zig build test
