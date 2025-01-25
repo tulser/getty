@@ -1,9 +1,10 @@
 name: test
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches-ignore:
+      - 'docs'
+    pull_request:
+      - 'docs'
 
 jobs:
   lint:
@@ -14,7 +15,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: setup-zig
-        uses: goto-bus-stop/setup-zig@v2
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.13.0
 
       - name: lint
         run: |
@@ -33,10 +36,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: setup-zig
-        uses: goto-bus-stop/setup-zig@v2
-
-      - name: build
-        run: zig build
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.13.0
 
       - name: test
         run: zig build test
@@ -57,12 +59,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: setup-zig
-        uses: goto-bus-stop/setup-zig@v2
-
-      - name: build
-        run: |
-          zig build -Dtarget=x86_64-windows --prefix tmp
-          zig build
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.13.0
 
       - name: test
-        run: zig build test
+        run: zig build test -Dtarget=x86_64-windows --prefix tmp
