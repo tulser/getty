@@ -2,7 +2,7 @@ const std = @import("std");
 
 const err = @import("../error.zig");
 const default_st = @import("../tuples.zig").st;
-const isString = @import("helpers").isString;
+const isString = @import("common").helpers.isString;
 
 /// A `Serializer` converts _Getty values_ into formatted data.
 pub fn Serializer(

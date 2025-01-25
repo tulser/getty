@@ -24,7 +24,6 @@ pub const Void = @import("blocks/void.zig");
 // Standard Library
 ////////////////////////////////////////////////////////////////////////////////
 
-pub const Allocator = @import("blocks/allocator.zig");
 pub const ArrayBitSet = @import("blocks/array_bit_set.zig");
 
 /// `ArrayHashMap` is a _Serialization Block_ for `std.ArrayHashMap` values.

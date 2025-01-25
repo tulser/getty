@@ -7,8 +7,8 @@ pub fn has_block(
 ) bool {
     comptime {
         switch (@typeInfo(T)) {
-            .Enum, .Union => {},
-            .Struct => |info| if (info.is_tuple) return false,
+            .@"enum", .@"union" => {},
+            .@"struct" => |info| if (info.is_tuple) return false,
             else => return false,
         }
 

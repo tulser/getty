@@ -25,8 +25,6 @@ pub const st = .{
     // Standard Library
     ////////////////////////////////////////////////////////////////////////////
 
-    blocks.Allocator,
-
     // Covers the following types:
     //
     //   - std.ArrayBitSet

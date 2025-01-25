@@ -6,25 +6,18 @@ const Type = std.builtin.Type;
 pub const Case = enum {
     // foobar
     lower,
-
     // FOOBAR
     upper,
-
     // foo_bar
     snake,
-
     // fooBar
     camel,
-
     // Foobar
     pascal,
-
     // foo-bar
     kebab,
-
     // FOO_BAR
     screaming_snake,
-
     // FOO-BAR
     screaming_kebab,
 };
@@ -43,27 +36,27 @@ pub fn Attributes(comptime T: type, comptime attributes: anytype) type {
     const attributes_info = @typeInfo(A);
 
     // Check that attributes is a struct.
-    if (attributes_info != .Struct) {
+    if (attributes_info != .@"struct") {
         @compileError(comptimePrint("expected attributes to be a struct, found `{s}`", .{@typeName(A)}));
     }
 
     // If attributes contains no fields, return an empty attribute map.
-    if (attributes_info.Struct.fields.len == 0) {
+    if (attributes_info.@"struct".fields.len == 0) {
         return struct {};
     }
 
     const container = &ContainerAttributes{};
 
-    var fields: [attributes_info.Struct.fields.len]Type.StructField = undefined;
+    var fields: [attributes_info.@"struct".fields.len]Type.StructField = undefined;
 
-    inline for (attributes_info.Struct.fields, 0..) |field, i| {
+    inline for (attributes_info.@"struct".fields, 0..) |field, i| {
         if (@hasField(T, field.name)) {
             for (std.meta.fields(T)) |f| {
                 if (std.mem.eql(u8, field.name, f.name)) {
                     const Attrs = switch (@typeInfo(T)) {
-                        .Enum => VariantAttributes,
-                        .Struct => FieldAttributes(f.type),
-                        .Union => VariantAttributes,
+                        .@"enum" => VariantAttributes,
+                        .@"struct" => FieldAttributes(f.type),
+                        .@"union" => VariantAttributes,
                         else => @compileError(comptimePrint("expected attributes to be defined in an enum, struct or union: found `{s}`", .{@typeName(T)})),
                     };
                     const attrs = &Attrs{};
@@ -73,7 +66,7 @@ pub fn Attributes(comptime T: type, comptime attributes: anytype) type {
                     fields[i] = .{
                         .name = field.name,
                         .type = Attrs,
-                        .default_value = attrs,
+                        .default_value_ptr = attrs,
                         .is_comptime = false,
                         .alignment = 4,
                     };
@@ -97,7 +90,7 @@ pub fn Attributes(comptime T: type, comptime attributes: anytype) type {
     }
 
     return @Type(Type{
-        .Struct = .{
+        .@"struct" = .{
             .layout = .auto,
             .fields = &fields,
             .decls = &[_]Type.Declaration{},
@@ -115,8 +108,8 @@ pub fn has_attributes(
 ) bool {
     comptime {
         switch (@typeInfo(T)) {
-            .Enum, .Union => {},
-            .Struct => |info| if (info.is_tuple) return false,
+            .@"enum", .@"union" => {},
+            .@"struct" => |info| if (info.is_tuple) return false,
             else => return false,
         }
 
