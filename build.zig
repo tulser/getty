@@ -33,23 +33,28 @@ pub fn build(b: *std.Build) void {
     // Tests
     {
         const test_all_step = b.step("test", "Run tests");
-        // filtered testing
+        // For LSP checking.
+        const check_step = b.step("check", "LSP compile check step");
+        check_step.dependOn(test_all_step);
+
+        // Filtered testing.
         if (b.args) |args| {
             std.debug.assert(args.len != 0); // b.args would be null if no arguments were given.
 
-            for (args) |arg| {
-                const test_filtered = b.addTest(.{
-                    .name = "filtered test",
+            const tests_filtered = b.addTest(.{
+                .name = "filtered test",
+                .filters = args,
+                .root_module = b.createModule(.{
                     .root_source_file = b.path(package_path),
-                    .filter = arg,
                     .target = target,
                     .optimize = optimize,
-                });
-                inline for (imports) |import| {
-                    test_filtered.root_module.addImport(import.name, import.module);
-                }
-                test_all_step.dependOn(&b.addRunArtifact(test_filtered).step);
+                }),
+            });
+
+            inline for (imports) |import| {
+                tests_filtered.root_module.addImport(import.name, import.module);
             }
+            test_all_step.dependOn(&b.addRunArtifact(tests_filtered).step);
 
             return;
         }
@@ -60,9 +65,11 @@ pub fn build(b: *std.Build) void {
         // Serialization tests.
         const test_ser = b.addTest(.{
             .name = "serialization test",
-            .root_source_file = b.path("src/ser/ser.zig"),
-            .target = target,
-            .optimize = optimize,
+            .root_module = b.createModule(.{
+                .root_source_file = b.path("src/ser/ser.zig"),
+                .target = target,
+                .optimize = optimize,
+            }),
         });
         inline for (imports) |import| {
             test_ser.root_module.addImport(import.name, import.module);
@@ -73,9 +80,11 @@ pub fn build(b: *std.Build) void {
         // Deserialization tests.
         const test_deser = b.addTest(.{
             .name = "deserialization test",
-            .root_source_file = b.path("src/de/de.zig"),
-            .target = target,
-            .optimize = optimize,
+            .root_module = b.createModule(.{
+                .root_source_file = b.path("src/de/de.zig"),
+                .target = target,
+                .optimize = optimize,
+            }),
         });
         inline for (imports) |import| {
             test_deser.root_module.addImport(import.name, import.module);
@@ -90,9 +99,11 @@ pub fn build(b: *std.Build) void {
 
         const doc_obj = b.addObject(.{
             .name = "docs",
-            .root_source_file = b.path(package_path),
-            .target = target,
-            .optimize = optimize,
+            .root_module = b.createModule(.{
+                .root_source_file = b.path(package_path),
+                .target = target,
+                .optimize = optimize,
+            }),
         });
         inline for (imports) |import| {
             doc_obj.root_module.addImport(import.name, import.module);

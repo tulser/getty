@@ -1,6 +1,8 @@
 .{
-    .name = "getty",
+    .name = .getty,
+    .fingerprint = 0xd0baee97d9b88416,
     .version = "0.4.0",
+    .minimum_zig_version = "0.14.0",
     .paths = .{
         "build.zig",
         "build.zig.zon",
@@ -10,8 +12,8 @@
     },
     .dependencies = .{
         .protest = .{
-            .url = "https://github.com/ibokuri/protest/archive/e7a9bc39c213985814a904b38e4506a6fbd537b2.tar.gz",
-            .hash = "122014736a658ee30f82e5c6e3038c95727690fe01fced2791b213dba10c65fba7c5",
+            .url = "git+https://github.com/tulser/protest.git?ref=main#6fea7139a80a0abc5d73bbf04984f480c4529848",
+            .hash = "protest-0.1.0-AAAAAIG7AAC4C7sAEpgkF3FvPIrOMKucYo-HJMUy1sAf",
         },
     },
 }
